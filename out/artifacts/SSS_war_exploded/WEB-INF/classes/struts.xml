@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.objectFactory" value="spring"/>
+    <!--<constant name="struts.objectFactory.spring.autoWire" value="byName"/>-->
+    <!--<constant name="com.opensymphony.xwork2.ObjectFactory" value="spring" />-->
+    <!-- 配置 不用重启服务器就可以改代码 -->
+    <!-- value 默认false, 改为true 为开发模式 -->
+    <constant name="struts.devMode" value="true"/>
+    <!-- action动态方法调用 Dynamic Method Invocation-->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <!-- 编码方式 -->
+    <constant name="struts.custom.i18n.encoding" value="UTF-8" />
+
+
+    <package name="Login" namespace="/login" extends="json-default">
+        <action name="login" class="loginAction" method="execute">
+            <result name="success" type="json">
+                <param name="excludeProperties">username, password</param>
+            </result>
+            <result name="error" type="json">
+                <param name="excludeProperties">username, password</param>
+            </result>
+        </action>
+        <action name="register" class="registerAction" method="execute">
+            <result name="success" type="json">
+                <param name="excludeProperties">username, password, repassword</param>
+            </result>
+            <result name="error" type="json">
+                <param name="excludeProperties">username, password, repasswrod</param>
+            </result>
+        </action>
+        <action name="logout" class="logoutAction" method="execute">
+            <result name="success" type="json" />
+        </action>
+    </package>
+
+    <package name="Admin" namespace="/admin" extends="struts-default">
+        <action name="admin" class="adminAction" method="execute">
+                <result name="success">/views/admin/index.jsp</result>
+        </action>
+    </package>
+
+</struts>
